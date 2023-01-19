@@ -11,8 +11,8 @@ public class PrecificacaoDAO {
     PreparedStatement pstm;
 
     /**
-     * Classe operação de CRUD Cadastrar, pega informações do objeto e cadastra
-     * no Banco de Dados
+     * Classe operação de CRUD "Cadastrar", pega informações do objeto
+     * relacionado e cadastra no Banco de Dados.
      * @objPrecificacaoDTO passa um objeto preenchido do formulario com valores
      * passado pelo usuario
      */
