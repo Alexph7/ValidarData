@@ -15,7 +15,7 @@ public class ConexaoDAO {
         Connection conexao = null;
 
         try {
-            conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/controledevendas", "root", "");
+            conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/maiscriativa", "root", "");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Classe ConexaoDAO Método conector()" + e.getMessage());
         }
