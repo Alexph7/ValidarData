@@ -17,7 +17,7 @@ public class PrecificacaoDAO {
      * passado pelo usuario
      */
     public void cadastrarProduto(PrecificacaoDTO objPrecificacaoDTO) {
-        String sql = "insert into tbprodutos(nome,dimensoes,quantidade,preco,total) values(?,?,?,?,?);";
+        String sql = "insert into tbprodutos(nome,dimensoes,quantidade,preco,total,data_produto) values(?,?,?,?,?,?);";
         conexao = new ConexaoDAO().conexaoBD();
 
         try {
@@ -27,6 +27,8 @@ public class PrecificacaoDAO {
             pstm.setString(3, String.valueOf(objPrecificacaoDTO.getQuantidadeProduto()));
             pstm.setString(4, String.valueOf(objPrecificacaoDTO.getPrecoProduto()));
             pstm.setString(5, String.valueOf(objPrecificacaoDTO.getPrecoTotalProduto()));
+
+            pstm.setDate(6, objPrecificacaoDTO.getDataProduto());
 
             pstm.execute();
             pstm.close();
