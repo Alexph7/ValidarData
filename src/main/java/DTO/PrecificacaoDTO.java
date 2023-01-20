@@ -1,5 +1,7 @@
 package DTO;
 
+import java.sql.Date;
+
 /**
  *
  * @author ph757
@@ -9,8 +11,9 @@ public class PrecificacaoDTO {
     private String nomeProduto, dimensoesProduto;
     private int idProduto, quantidadeProduto;
     private double precoProduto, precoTotalProduto;
+    private Date dataProduto;
 
-    public PrecificacaoDTO(String nomeProduto, String dimensoesProduto, int quantidadeProduto, double precoProduto) {
+    public PrecificacaoDTO(String nomeProduto, String dimensoesProduto, int quantidadeProduto, double precoProduto, Date dataProduto) {
 
         if (quantidadeProduto < 0) {
             throw new IllegalArgumentException("Quantidade Não Pode Ser Menor Que Zero");
@@ -23,6 +26,7 @@ public class PrecificacaoDTO {
         this.dimensoesProduto = dimensoesProduto;
         this.quantidadeProduto = quantidadeProduto;
         this.precoProduto = precoProduto;
+        this.dataProduto = dataProduto;
     }
 
     public String getNomeProduto() {
@@ -59,6 +63,14 @@ public class PrecificacaoDTO {
 
     public int getIdProduto() {
         return idProduto;
+    }
+
+    public Date getDataProduto() {
+        return dataProduto;
+    }
+
+    public void setDataProduto(Date dataProduto) {
+        this.dataProduto = dataProduto;
     }
 
     public double getPrecoTotalProduto() {
