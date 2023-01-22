@@ -9,6 +9,8 @@ import DTO.PrecificacaoDTO;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,9 +22,11 @@ public class TelaPrecificacao extends javax.swing.JFrame {
      * Creates new form TelaPrecificacao
      */
     public TelaPrecificacao() {
+
         initComponents();
         LocalDate objLocalDate = LocalDate.now();
-        txtDataProduto.setText(String.valueOf(objLocalDate));
+
+        txtDataProduto.setText(String.valueOf(objLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
     }
 
     /**
@@ -47,12 +51,13 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         txtDimensaoProduto = new javax.swing.JTextField();
         lblNomeProduto = new javax.swing.JLabel();
         btnCadastrarProduto = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtPesquisaProduto = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnCadastrarProduto1 = new javax.swing.JButton();
         btnCadastrarProduto2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtDataProduto = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Precificação Produtos");
@@ -116,11 +121,11 @@ public class TelaPrecificacao extends javax.swing.JFrame {
             }
         });
         panelPrincipal.add(btnCadastrarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 130, 40));
-        panelPrincipal.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 700, 30));
+        panelPrincipal.add(txtPesquisaProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 650, 30));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Pesquisar");
-        panelPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        panelPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
 
         btnCadastrarProduto1.setText("Alterar");
         btnCadastrarProduto1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -144,6 +149,9 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         jLabel2.setText("Data");
         panelPrincipal.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, -1, -1));
         panelPrincipal.add(txtDataProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 440, 150, 30));
+
+        jLabel3.setText("ICon Home");
+        panelPrincipal.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 50, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,16 +188,8 @@ public class TelaPrecificacao extends javax.swing.JFrame {
      * @param evt
      */
     private void btnCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProdutoActionPerformed
-        String nomeProduto = txtNomeProduto.getText();
-        String dimensoes = txtDimensaoProduto.getText();
-        int quantidade = Integer.parseInt(txtQuantidadeProduto.getText());
-        double precoProduto = Double.parseDouble(txtPrecoUnProduto.getText());
-        Date dataProduto = Date.valueOf(txtDataProduto.getText());
-
-        PrecificacaoDTO objPrecificacaoDTO = new PrecificacaoDTO(nomeProduto, dimensoes, quantidade, precoProduto, dataProduto);
-
-        PrecificacaoDAO objPrecificacaoDAO = new PrecificacaoDAO();
-        objPrecificacaoDAO.cadastrarProduto(objPrecificacaoDTO);
+        cadastrarProduto();
+        limparCampos();
     }//GEN-LAST:event_btnCadastrarProdutoActionPerformed
 
     /**
@@ -216,8 +216,8 @@ public class TelaPrecificacao extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastrarProduto2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblDimensaoProduto;
     private javax.swing.JLabel lblNomeProduto;
     private javax.swing.JLabel lblNomeProduto2;
@@ -228,7 +228,45 @@ public class TelaPrecificacao extends javax.swing.JFrame {
     private javax.swing.JTextField txtDataProduto;
     private javax.swing.JTextField txtDimensaoProduto;
     private javax.swing.JTextField txtNomeProduto;
+    private javax.swing.JTextField txtPesquisaProduto;
     private javax.swing.JTextField txtPrecoUnProduto;
     private javax.swing.JTextField txtQuantidadeProduto;
     // End of variables declaration//GEN-END:variables
+
+    public void cadastrarProduto() {
+
+        String nomeProduto = txtNomeProduto.getText();
+        String dimensoes = txtDimensaoProduto.getText();
+        int quantidade = Integer.parseInt(txtQuantidadeProduto.getText());
+        double precoProduto = Double.parseDouble(txtPrecoUnProduto.getText());
+
+        try {
+            //Objeto que Converte valor da data no Formato especificado.
+            LocalDate stringParaData = LocalDate.parse(txtDataProduto.getText(), DateTimeFormatter.ofPattern("dd/MM/uuuu"));
+
+            //Pega o Valor da Data Formatado e Passa Para Tipo Date.Sql que é o Que esta definido Na ClasseDTO.
+            Date dataProduto = Date.valueOf(stringParaData);
+
+            //Passa Todos os Valores Obtidos Do Usuario Para a ClasseDTO Para Encapsulamento.
+            PrecificacaoDTO objPrecificacaoDTO = new PrecificacaoDTO(nomeProduto, dimensoes, quantidade, precoProduto, dataProduto);
+
+            //Passa Todos Valores do ObjetoDTO Para ClasseDAO Para Conectar Com Banco de Dados.
+            PrecificacaoDAO objPrecificacaoDAO = new PrecificacaoDAO();
+            objPrecificacaoDAO.cadastrarProduto(objPrecificacaoDTO);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Data Errada, Favor Inserir Data Correta.");
+        }
+    }
+
+    private void limparCampos() {
+
+        txtPesquisaProduto.setText(null);
+        //tblProdutos.set
+        txtNomeProduto.setText(null);
+        txtDimensaoProduto.setText(null);
+        txtQuantidadeProduto.setText(null);
+        txtPrecoUnProduto.setText(null);
+
+    }
+
 }
