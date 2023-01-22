@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -273,6 +274,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
 
         txtPesquisaProduto.setText(null);
         //tblProdutos.set
+        ((DefaultTableModel) tblProdutos.getModel()).setRowCount(0);
         txtNomeProduto.setText(null);
         txtDimensaoProduto.setText(null);
         txtQuantidadeProduto.setText(null);
