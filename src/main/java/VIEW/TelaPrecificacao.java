@@ -25,9 +25,8 @@ public class TelaPrecificacao extends javax.swing.JFrame {
     public TelaPrecificacao() {
 
         initComponents();
-        LocalDate objLocalDate = LocalDate.now();
 
-        txtDataProduto.setText(String.valueOf(objLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+        txtDataProduto.setText(String.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"))));
     }
 
     /**
@@ -91,6 +90,11 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         panelPrincipal.add(lblQuantidadeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
 
         txtQuantidadeProduto.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
+        txtQuantidadeProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtQuantidadeProdutoKeyReleased(evt);
+            }
+        });
         panelPrincipal.add(txtQuantidadeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 101, 33));
 
         txtNomeProduto.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
@@ -103,6 +107,11 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         panelPrincipal.add(lblPrecoUnProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 410, -1, -1));
 
         txtPrecoUnProduto.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
+        txtPrecoUnProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPrecoUnProdutoKeyReleased(evt);
+            }
+        });
         panelPrincipal.add(txtPrecoUnProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 440, 170, 33));
 
         lblDimensaoProduto.setText("Dimensoes");
@@ -149,6 +158,12 @@ public class TelaPrecificacao extends javax.swing.JFrame {
 
         jLabel2.setText("Data");
         panelPrincipal.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, -1, -1));
+
+        txtDataProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDataProdutoKeyReleased(evt);
+            }
+        });
         panelPrincipal.add(txtDataProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 440, 150, 30));
 
         jLabel3.setText("ICon Home");
@@ -190,8 +205,19 @@ public class TelaPrecificacao extends javax.swing.JFrame {
      */
     private void btnCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProdutoActionPerformed
         cadastrarProduto();
-        limparCampos();
     }//GEN-LAST:event_btnCadastrarProdutoActionPerformed
+
+    private void txtQuantidadeProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeProdutoKeyReleased
+        txtQuantidadeProduto.setText(txtQuantidadeProduto.getText().replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_txtQuantidadeProdutoKeyReleased
+
+    private void txtPrecoUnProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecoUnProdutoKeyReleased
+        txtPrecoUnProduto.setText(txtPrecoUnProduto.getText().replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_txtPrecoUnProdutoKeyReleased
+
+    private void txtDataProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataProdutoKeyReleased
+        txtDataProduto.setText(txtDataProduto.getText().replaceAll("[^0-9/]", ""));
+    }//GEN-LAST:event_txtDataProdutoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -244,42 +270,42 @@ public class TelaPrecificacao extends javax.swing.JFrame {
             txtQuantidadeProduto.requestFocus();
         } else if (txtPrecoUnProduto.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Informe o Preço Do Produto.");
+            txtPrecoUnProduto.requestFocus();
+        } else {
+            String nomeProduto = txtNomeProduto.getText();
+            String dimensoes = txtDimensaoProduto.getText();
+            int quantidade = Integer.parseInt(txtQuantidadeProduto.getText());
+            double precoProduto = Double.parseDouble(txtPrecoUnProduto.getText().replace(",", "."));
+            try {
+                //Objeto que Converte valor da data no Formato especificado.
+                LocalDate stringParaData = LocalDate.parse(txtDataProduto.getText(), DateTimeFormatter.ofPattern("dd/MM/uu"));
+
+                //Pega o Valor da Data Formatado e Passa Para Tipo Date.Sql que é o Que esta definido Na ClasseDTO.
+                Date dataProduto = Date.valueOf(stringParaData);
+
+                //Passa Todos os Valores Obtidos Do Usuario Para a ClasseDTO Para Encapsulamento.
+                PrecificacaoDTO objPrecificacaoDTO = new PrecificacaoDTO(nomeProduto, dimensoes, quantidade, precoProduto, dataProduto);
+
+                //Passa Todos Valores do ObjetoDTO Para ClasseDAO Para Conectar Com Banco de Dados.
+                PrecificacaoDAO objPrecificacaoDAO = new PrecificacaoDAO();
+                objPrecificacaoDAO.cadastrarProduto(objPrecificacaoDTO);
+                limparCampos();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Data Errada, Favor Inserir Data Correta.");
+            }
         }
-        txtPrecoUnProduto.requestFocus();
 
-        String nomeProduto = txtNomeProduto.getText();
-        String dimensoes = txtDimensaoProduto.getText();
-        int quantidade = Integer.parseInt(txtQuantidadeProduto.getText());
-        double precoProduto = Double.parseDouble(txtPrecoUnProduto.getText());
-
-        try {
-            //Objeto que Converte valor da data no Formato especificado.
-            LocalDate stringParaData = LocalDate.parse(txtDataProduto.getText(), DateTimeFormatter.ofPattern("dd/MM/uuuu"));
-
-            //Pega o Valor da Data Formatado e Passa Para Tipo Date.Sql que é o Que esta definido Na ClasseDTO.
-            Date dataProduto = Date.valueOf(stringParaData);
-
-            //Passa Todos os Valores Obtidos Do Usuario Para a ClasseDTO Para Encapsulamento.
-            PrecificacaoDTO objPrecificacaoDTO = new PrecificacaoDTO(nomeProduto, dimensoes, quantidade, precoProduto, dataProduto);
-
-            //Passa Todos Valores do ObjetoDTO Para ClasseDAO Para Conectar Com Banco de Dados.
-            PrecificacaoDAO objPrecificacaoDAO = new PrecificacaoDAO();
-            objPrecificacaoDAO.cadastrarProduto(objPrecificacaoDTO);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Data Errada, Favor Inserir Data Correta.");
-        }
     }
 
-    private void limparCampos() {
+    public void limparCampos() {
 
         txtPesquisaProduto.setText(null);
-        //tblProdutos.set
         ((DefaultTableModel) tblProdutos.getModel()).setRowCount(0);
         txtNomeProduto.setText(null);
         txtDimensaoProduto.setText(null);
         txtQuantidadeProduto.setText(null);
         txtPrecoUnProduto.setText(null);
-
+        txtDataProduto.setText(String.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"))));
     }
 
 }
