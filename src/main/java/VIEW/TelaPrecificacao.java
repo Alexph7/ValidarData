@@ -53,11 +53,12 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         btnCadastrarProduto = new javax.swing.JButton();
         txtPesquisaProduto = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        btnCadastrarProduto1 = new javax.swing.JButton();
-        btnCadastrarProduto2 = new javax.swing.JButton();
+        btnAlterarProduto = new javax.swing.JButton();
+        btnDeletarProduto = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtDataProduto = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        txtResetData = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Precificação Produtos");
@@ -131,30 +132,36 @@ public class TelaPrecificacao extends javax.swing.JFrame {
             }
         });
         panelPrincipal.add(btnCadastrarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 130, 40));
+
+        txtPesquisaProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisaProdutoKeyReleased(evt);
+            }
+        });
         panelPrincipal.add(txtPesquisaProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 650, 30));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Pesquisar");
         panelPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
 
-        btnCadastrarProduto1.setText("Alterar");
-        btnCadastrarProduto1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCadastrarProduto1.addActionListener(new java.awt.event.ActionListener() {
+        btnAlterarProduto.setText("Alterar");
+        btnAlterarProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAlterarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarProduto1ActionPerformed(evt);
+                btnAlterarProdutoActionPerformed(evt);
             }
         });
-        panelPrincipal.add(btnCadastrarProduto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 510, 130, 40));
+        panelPrincipal.add(btnAlterarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 510, 130, 40));
 
-        btnCadastrarProduto2.setText("Deletar");
-        btnCadastrarProduto2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCadastrarProduto2.setFocusTraversalPolicyProvider(true);
-        btnCadastrarProduto2.addActionListener(new java.awt.event.ActionListener() {
+        btnDeletarProduto.setText("Deletar");
+        btnDeletarProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDeletarProduto.setFocusTraversalPolicyProvider(true);
+        btnDeletarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarProduto2ActionPerformed(evt);
+                btnDeletarProdutoActionPerformed(evt);
             }
         });
-        panelPrincipal.add(btnCadastrarProduto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 510, 130, 40));
+        panelPrincipal.add(btnDeletarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 510, 130, 40));
 
         jLabel2.setText("Data");
         panelPrincipal.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, -1, -1));
@@ -168,6 +175,16 @@ public class TelaPrecificacao extends javax.swing.JFrame {
 
         jLabel3.setText("ICon Home");
         panelPrincipal.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 50, 30));
+
+        txtResetData.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtResetData.setText("icon Reset data");
+        txtResetData.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtResetData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtResetDataMouseClicked(evt);
+            }
+        });
+        panelPrincipal.add(txtResetData, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 450, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -184,13 +201,13 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCadastrarProduto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProduto2ActionPerformed
+    private void btnDeletarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarProdutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCadastrarProduto2ActionPerformed
+    }//GEN-LAST:event_btnDeletarProdutoActionPerformed
 
-    private void btnCadastrarProduto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProduto1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCadastrarProduto1ActionPerformed
+    private void btnAlterarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarProdutoActionPerformed
+
+    }//GEN-LAST:event_btnAlterarProdutoActionPerformed
 
     /**
      * Metodo Que Cadastra Produtos ao clica no Botao Adicionar
@@ -217,7 +234,17 @@ public class TelaPrecificacao extends javax.swing.JFrame {
 
     private void txtDataProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataProdutoKeyReleased
         txtDataProduto.setText(txtDataProduto.getText().replaceAll("[^0-9/]", ""));
+
     }//GEN-LAST:event_txtDataProdutoKeyReleased
+
+    private void txtResetDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtResetDataMouseClicked
+        txtDataProduto.setText(String.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"))));
+    }//GEN-LAST:event_txtResetDataMouseClicked
+
+    private void txtPesquisaProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaProdutoKeyReleased
+        new PrecificacaoDAO().pesquisarProduto();
+
+    }//GEN-LAST:event_txtPesquisaProdutoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -238,9 +265,9 @@ public class TelaPrecificacao extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterarProduto;
     private javax.swing.JButton btnCadastrarProduto;
-    private javax.swing.JButton btnCadastrarProduto1;
-    private javax.swing.JButton btnCadastrarProduto2;
+    private javax.swing.JButton btnDeletarProduto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -251,13 +278,14 @@ public class TelaPrecificacao extends javax.swing.JFrame {
     private javax.swing.JLabel lblPrecoUnProduto;
     private javax.swing.JLabel lblQuantidadeProduto;
     private javax.swing.JPanel panelPrincipal;
-    private javax.swing.JTable tblProdutos;
+    public static javax.swing.JTable tblProdutos;
     private javax.swing.JTextField txtDataProduto;
     private javax.swing.JTextField txtDimensaoProduto;
     private javax.swing.JTextField txtNomeProduto;
-    private javax.swing.JTextField txtPesquisaProduto;
+    public static javax.swing.JTextField txtPesquisaProduto;
     private javax.swing.JTextField txtPrecoUnProduto;
     private javax.swing.JTextField txtQuantidadeProduto;
+    private javax.swing.JLabel txtResetData;
     // End of variables declaration//GEN-END:variables
 
     public void cadastrarProduto() {
@@ -291,7 +319,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 objPrecificacaoDAO.cadastrarProduto(objPrecificacaoDTO);
                 limparCampos();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Data Errada, Favor Inserir Data Correta.");
+                JOptionPane.showMessageDialog(null, "Insera a Data Corretamente, 2 digitos para Dia, 2 Dias Para Mês e 2 Digitos Para Ano.");
             }
         }
 
