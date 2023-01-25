@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,7 +27,10 @@ public class TelaPrecificacao extends javax.swing.JFrame {
 
         initComponents();
 
-        txtDataProduto.setText(String.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"))));
+        txtDiaData.setText(String.valueOf(LocalDate.now().getDayOfMonth()));
+        txtMesData.setText(String.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("MM"))));
+        txtAnoData.setText(String.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("yy"))));
+
     }
 
     /**
@@ -51,14 +55,19 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         txtDimensaoProduto = new javax.swing.JTextField();
         lblNomeProduto = new javax.swing.JLabel();
         btnCadastrarProduto = new javax.swing.JButton();
+        lblLimparCampoPesquisa = new javax.swing.JLabel();
         txtPesquisaProduto = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnAlterarProduto = new javax.swing.JButton();
         btnDeletarProduto = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        txtDataProduto = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtResetData = new javax.swing.JLabel();
+        txtAnoData = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtDiaData = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtMesData = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Precificação Produtos");
@@ -133,16 +142,31 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         });
         panelPrincipal.add(btnCadastrarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 130, 40));
 
+        lblLimparCampoPesquisa.setBackground(new java.awt.Color(255, 255, 255));
+        lblLimparCampoPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblLimparCampoPesquisa.setForeground(new java.awt.Color(204, 204, 204));
+        lblLimparCampoPesquisa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLimparCampoPesquisa.setText("x");
+        lblLimparCampoPesquisa.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblLimparCampoPesquisa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblLimparCampoPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLimparCampoPesquisaMouseClicked(evt);
+            }
+        });
+        panelPrincipal.add(lblLimparCampoPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 20, 30, 30));
+
+        txtPesquisaProduto.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
         txtPesquisaProduto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtPesquisaProdutoKeyReleased(evt);
             }
         });
-        panelPrincipal.add(txtPesquisaProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 650, 30));
+        panelPrincipal.add(txtPesquisaProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 540, 30));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Pesquisar");
-        panelPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel1.setText("Icone Pesquisar");
+        panelPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, 30));
 
         btnAlterarProduto.setText("Alterar");
         btnAlterarProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -164,16 +188,10 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         panelPrincipal.add(btnDeletarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 510, 130, 40));
 
         jLabel2.setText("Data");
-        panelPrincipal.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, -1, -1));
-
-        txtDataProduto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtDataProdutoKeyReleased(evt);
-            }
-        });
-        panelPrincipal.add(txtDataProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 440, 150, 30));
+        panelPrincipal.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 420, -1, -1));
 
         jLabel3.setText("ICon Home");
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panelPrincipal.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 50, 30));
 
         txtResetData.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -184,7 +202,39 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 txtResetDataMouseClicked(evt);
             }
         });
-        panelPrincipal.add(txtResetData, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 450, -1, -1));
+        panelPrincipal.add(txtResetData, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 450, -1, -1));
+
+        txtAnoData.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtAnoData.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtAnoDataKeyReleased(evt);
+            }
+        });
+        panelPrincipal.add(txtAnoData, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 440, 40, 30));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel4.setText("/");
+        panelPrincipal.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 440, 20, -1));
+
+        txtDiaData.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtDiaData.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDiaDataKeyReleased(evt);
+            }
+        });
+        panelPrincipal.add(txtDiaData, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 440, 40, 30));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel5.setText("/");
+        panelPrincipal.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 440, 20, -1));
+
+        txtMesData.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtMesData.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMesDataKeyReleased(evt);
+            }
+        });
+        panelPrincipal.add(txtMesData, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 440, 40, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -225,26 +275,39 @@ public class TelaPrecificacao extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarProdutoActionPerformed
 
     private void txtQuantidadeProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeProdutoKeyReleased
-        txtQuantidadeProduto.setText(txtQuantidadeProduto.getText().replaceAll("[^0-9]", ""));
+        aceitarSoNumeros(txtQuantidadeProduto);
     }//GEN-LAST:event_txtQuantidadeProdutoKeyReleased
 
     private void txtPrecoUnProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecoUnProdutoKeyReleased
-        txtPrecoUnProduto.setText(txtPrecoUnProduto.getText().replaceAll("[^0-9]", ""));
+        txtPrecoUnProduto.setText(txtPrecoUnProduto.getText().replaceAll("[^0-9,]", ""));
     }//GEN-LAST:event_txtPrecoUnProdutoKeyReleased
 
-    private void txtDataProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataProdutoKeyReleased
-        txtDataProduto.setText(txtDataProduto.getText().replaceAll("[^0-9/]", ""));
-
-    }//GEN-LAST:event_txtDataProdutoKeyReleased
-
     private void txtResetDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtResetDataMouseClicked
-        txtDataProduto.setText(String.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"))));
+        txtDiaData.setText(String.valueOf(LocalDate.now().getDayOfMonth()));
+        txtMesData.setText(String.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("MM"))));
+        txtAnoData.setText(String.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("yy"))));
     }//GEN-LAST:event_txtResetDataMouseClicked
 
     private void txtPesquisaProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaProdutoKeyReleased
         new PrecificacaoDAO().pesquisarProduto();
 
     }//GEN-LAST:event_txtPesquisaProdutoKeyReleased
+
+    private void txtDiaDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDiaDataKeyReleased
+        aceitarSoNumeros(txtDiaData);
+    }//GEN-LAST:event_txtDiaDataKeyReleased
+
+    private void txtMesDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMesDataKeyReleased
+        aceitarSoNumeros(txtMesData);
+    }//GEN-LAST:event_txtMesDataKeyReleased
+
+    private void txtAnoDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnoDataKeyReleased
+        aceitarSoNumeros(txtAnoData);
+    }//GEN-LAST:event_txtAnoDataKeyReleased
+
+    private void lblLimparCampoPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLimparCampoPesquisaMouseClicked
+        txtPesquisaProduto.setText(null);
+    }//GEN-LAST:event_lblLimparCampoPesquisaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -271,16 +334,21 @@ public class TelaPrecificacao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDimensaoProduto;
+    private javax.swing.JLabel lblLimparCampoPesquisa;
     private javax.swing.JLabel lblNomeProduto;
     private javax.swing.JLabel lblNomeProduto2;
     private javax.swing.JLabel lblPrecoUnProduto;
     private javax.swing.JLabel lblQuantidadeProduto;
     private javax.swing.JPanel panelPrincipal;
     public static javax.swing.JTable tblProdutos;
-    private javax.swing.JTextField txtDataProduto;
+    private javax.swing.JTextField txtAnoData;
+    private javax.swing.JTextField txtDiaData;
     private javax.swing.JTextField txtDimensaoProduto;
+    private javax.swing.JTextField txtMesData;
     private javax.swing.JTextField txtNomeProduto;
     public static javax.swing.JTextField txtPesquisaProduto;
     private javax.swing.JTextField txtPrecoUnProduto;
@@ -305,21 +373,17 @@ public class TelaPrecificacao extends javax.swing.JFrame {
             int quantidade = Integer.parseInt(txtQuantidadeProduto.getText());
             double precoProduto = Double.parseDouble(txtPrecoUnProduto.getText().replace(",", "."));
             try {
-                //Objeto que Converte valor da data no Formato especificado.
-                LocalDate stringParaData = LocalDate.parse(txtDataProduto.getText(), DateTimeFormatter.ofPattern("dd/MM/uu"));
+                String dataConcatenada = "20" + txtAnoData.getText() + "-" + txtMesData.getText() + "-" + txtDiaData.getText();
 
-                //Pega o Valor da Data Formatado e Passa Para Tipo Date.Sql que é o Que esta definido Na ClasseDTO.
-                Date dataProduto = Date.valueOf(stringParaData);
+                Date dataProduto = Date.valueOf(dataConcatenada);
 
-                //Passa Todos os Valores Obtidos Do Usuario Para a ClasseDTO Para Encapsulamento.
                 PrecificacaoDTO objPrecificacaoDTO = new PrecificacaoDTO(nomeProduto, dimensoes, quantidade, precoProduto, dataProduto);
 
-                //Passa Todos Valores do ObjetoDTO Para ClasseDAO Para Conectar Com Banco de Dados.
                 PrecificacaoDAO objPrecificacaoDAO = new PrecificacaoDAO();
                 objPrecificacaoDAO.cadastrarProduto(objPrecificacaoDTO);
                 limparCampos();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Insera a Data Corretamente, 2 digitos para Dia, 2 Dias Para Mês e 2 Digitos Para Ano.");
+                JOptionPane.showMessageDialog(null, "Insira a Data Corretamente, 2 digitos para Dia, 2 Dias Para Mês e 2 Digitos Para Ano.");
             }
         }
 
@@ -333,7 +397,11 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         txtDimensaoProduto.setText(null);
         txtQuantidadeProduto.setText(null);
         txtPrecoUnProduto.setText(null);
-        txtDataProduto.setText(String.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"))));
+    }
+
+    public void aceitarSoNumeros(JTextField jtextfield) {
+
+        jtextfield.setText(jtextfield.getText().replaceAll("[^0-9]", ""));
     }
 
 }
