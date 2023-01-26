@@ -373,9 +373,8 @@ public class TelaPrecificacao extends javax.swing.JFrame {
             int quantidade = Integer.parseInt(txtQuantidadeProduto.getText());
             double precoProduto = Double.parseDouble(txtPrecoUnProduto.getText().replace(",", "."));
             try {
-                String dataConcatenada = "20" + txtAnoData.getText() + "-" + txtMesData.getText() + "-" + txtDiaData.getText();
 
-                Date dataProduto = Date.valueOf(dataConcatenada);
+                Date dataProduto = Date.valueOf(validarData(txtDiaData.getText(), txtMesData.getText(), txtAnoData.getText()));
 
                 PrecificacaoDTO objPrecificacaoDTO = new PrecificacaoDTO(nomeProduto, dimensoes, quantidade, precoProduto, dataProduto);
 
@@ -383,7 +382,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 objPrecificacaoDAO.cadastrarProduto(objPrecificacaoDTO);
                 limparCampos();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Insira a Data Corretamente, 2 digitos para Dia, 2 Dias Para Mês e 2 Digitos Para Ano.");
+                JOptionPane.showMessageDialog(null, "Erro Ao Cadastrar Verifique os Dados.");
             }
         }
 
@@ -402,6 +401,37 @@ public class TelaPrecificacao extends javax.swing.JFrame {
     public void aceitarSoNumeros(JTextField jtextfield) {
 
         jtextfield.setText(jtextfield.getText().replaceAll("[^0-9]", ""));
+    }
+
+    /**
+     * Faz Verificação de Ano Bissexto, Meses Com 30 e 31 dias
+     * @param dia
+     * @param mes
+     * @param ano
+     *
+     * @return Data Concatenada e Verificada
+     */
+    public String validarData(String dia, String mes, String ano) {
+
+        int[] limiteDiasNoMes = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        String dataValida = null;
+
+        int anoInteiro = Integer.parseInt(ano);
+        int mesInteiro = Integer.parseInt(mes);
+        int diaInteiro = Integer.parseInt(dia);
+
+        if (mesInteiro <= 0 || mesInteiro > 12) {
+            JOptionPane.showMessageDialog(null, "Mês Fora do Intervalo 1-12");
+        }
+        if ((diaInteiro == 29 && mesInteiro == 02) && !(anoInteiro % 400 == 0 || anoInteiro % 4 == 0 && anoInteiro % 100 != 0)) {
+            JOptionPane.showMessageDialog(null, "Data Inválida Para Ano Não Bissexto.");
+        } else if (diaInteiro <= 0 || diaInteiro > limiteDiasNoMes[mesInteiro]) {
+            JOptionPane.showMessageDialog(null, "Dia Inválido Para Este Mês.");
+        } else {
+            dataValida = "20" + ano + "-" + mes + "-" + dia;
+        }
+
+        return dataValida;
     }
 
 }
