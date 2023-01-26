@@ -92,6 +92,11 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProdutosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblProdutos);
 
         panelPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 780, 210));
@@ -108,6 +113,11 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         panelPrincipal.add(txtQuantidadeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 101, 33));
 
         txtNomeProduto.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
+        txtNomeProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomeProdutoKeyReleased(evt);
+            }
+        });
         panelPrincipal.add(txtNomeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 396, 33));
 
         lblNomeProduto2.setText("(*) Campos Obrigatórios");
@@ -309,6 +319,26 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         txtPesquisaProduto.setText(null);
     }//GEN-LAST:event_lblLimparCampoPesquisaMouseClicked
 
+    private void tblProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutosMouseClicked
+        try {
+            setarCamposDaTabela();
+            if (tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 1).equals(txtNomeProduto.getText())) {
+                btnCadastrarProduto.setEnabled(false);
+            }
+        } catch (NullPointerException e) {
+
+        }
+
+    }//GEN-LAST:event_tblProdutosMouseClicked
+
+    private void txtNomeProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeProdutoKeyReleased
+        if (tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 1) != (txtNomeProduto.getText())) {
+            btnCadastrarProduto.setEnabled(true);
+        } else {
+            btnCadastrarProduto.setEnabled(true);
+        }
+    }//GEN-LAST:event_txtNomeProdutoKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -432,6 +462,31 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         }
 
         return dataValida;
+    }
+
+    /**
+     * Método Responsavel por Tirar Informações da Tabela e inserir em Seus
+     * respectivos Campos, no caso da Data foi preciso extrair a String e
+     * dividir com o metodo split em 3 partes separadas, dia, mês e ano, para
+     * setar no form que também é divido em 3 partes, 3 JTextFields.
+     */
+    private void setarCamposDaTabela() {
+
+        int setar = tblProdutos.getSelectedRow();
+
+        txtNomeProduto.setText(tblProdutos.getModel().getValueAt(setar, 1).toString());
+        txtDimensaoProduto.setText(tblProdutos.getModel().getValueAt(setar, 2).toString());
+        txtQuantidadeProduto.setText(tblProdutos.getModel().getValueAt(setar, 3).toString());
+        txtPrecoUnProduto.setText(tblProdutos.getModel().getValueAt(setar, 4).toString());
+
+        String diaTabela = tblProdutos.getModel().getValueAt(setar, 6).toString();
+        String[] diaParaForm = diaTabela.split("-");
+
+        String[] anoDuaPosicoes = diaParaForm[0].split("");
+        txtAnoData.setText(anoDuaPosicoes[2] + anoDuaPosicoes[3]);
+        txtMesData.setText(diaParaForm[1]);
+        txtDiaData.setText(diaParaForm[2]);
+
     }
 
 }
