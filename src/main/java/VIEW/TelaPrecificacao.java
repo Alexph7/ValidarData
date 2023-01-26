@@ -382,7 +382,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 objPrecificacaoDAO.cadastrarProduto(objPrecificacaoDTO);
                 limparCampos();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Erro Ao Cadastrar Verifique os Dados.");
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
 
@@ -421,12 +421,12 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         int diaInteiro = Integer.parseInt(dia);
 
         if (mesInteiro <= 0 || mesInteiro > 12) {
-            JOptionPane.showMessageDialog(null, "Mês Fora do Intervalo 1-12");
+            throw new IllegalArgumentException("Mês Fora do Intervalo 1-12");
         }
         if ((diaInteiro == 29 && mesInteiro == 02) && !(anoInteiro % 400 == 0 || anoInteiro % 4 == 0 && anoInteiro % 100 != 0)) {
-            JOptionPane.showMessageDialog(null, "Data Inválida Para Ano Não Bissexto.");
+            throw new IllegalArgumentException("Data Inválida Para Ano Não Bissexto.");
         } else if (diaInteiro <= 0 || diaInteiro > limiteDiasNoMes[mesInteiro]) {
-            JOptionPane.showMessageDialog(null, "Dia Inválido Para Este Mês.");
+            throw new IllegalArgumentException("Dia Inválido Para Este Mês.");
         } else {
             dataValida = "20" + ano + "-" + mes + "-" + dia;
         }
