@@ -304,7 +304,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeletarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarProdutoActionPerformed
-        btnCadastrarProduto.setEnabled(true);
+        excluirProduto();
     }//GEN-LAST:event_btnDeletarProdutoActionPerformed
 
     private void btnAlterarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarProdutoActionPerformed
@@ -618,9 +618,11 @@ public class TelaPrecificacao extends javax.swing.JFrame {
             double precoUn = Double.parseDouble(txtPrecoUnProduto.getText().replace(",", "."));
 
             PrecificacaoDTO objPrecificacaoDTO = new PrecificacaoDTO(txtNomeProduto.getText(), quantidade, precoUn);
-            objPrecificacaoDTO.getIdProduto();
+            objPrecificacaoDTO.setIdProduto(txtIdProduto.getText());
 
             new PrecificacaoDAO().excluirProduto(objPrecificacaoDTO);
+            limparCampos();
+            btnCadastrarProduto.setEnabled(true);
         }
     }
 
