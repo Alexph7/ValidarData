@@ -56,7 +56,9 @@ public class PrecificacaoDAO {
             pstm = conexao.prepareStatement(sql);
             pstm.setString(1, TelaPrecificacao.txtPesquisaProduto.getText() + "%");
             rs = pstm.executeQuery();
+
             TelaPrecificacao.tblProdutos.setModel(DbUtils.resultSetToTableModel(rs));
+            pstm.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Classe PrecificacaoDao, Metodo Pesquisar Produto" + e.getMessage());
 
@@ -79,6 +81,7 @@ public class PrecificacaoDAO {
             pstm.setString(7, objPrecificacaoDTO.getIdProduto());
 
             pstm.executeUpdate();
+            pstm.close();
 
             JOptionPane.showMessageDialog(null, "Produto Alterado Com Sucesso");
         } catch (HeadlessException | SQLException e) {
@@ -96,6 +99,7 @@ public class PrecificacaoDAO {
             int apagado = pstm.executeUpdate();
             if (apagado > 0) {
                 JOptionPane.showMessageDialog(null, "Produto Excluido Com Sucesso");
+                pstm.close();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Classe PrecificacaoDao, Metodo ExcluirProduto" + e.getMessage());
