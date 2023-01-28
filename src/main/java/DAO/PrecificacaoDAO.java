@@ -63,4 +63,43 @@ public class PrecificacaoDAO {
         }
     }
 
+    public void alterarProduto(PrecificacaoDTO objPrecificacaoDTO) {
+
+        String sql = "update tbprodutos set nome=?,dimensoes=?,quantidade=?,preco=?,total=?,data_produto=? where idproduto=?";
+
+        try {
+            conexao = new ConexaoDAO().conexaoBD();
+            pstm = conexao.prepareStatement(sql);
+            pstm.setString(1, objPrecificacaoDTO.getNomeProduto());
+            pstm.setString(2, objPrecificacaoDTO.getDimensoesProduto());
+            pstm.setString(3, String.valueOf(objPrecificacaoDTO.getQuantidadeProduto()));
+            pstm.setString(4, String.valueOf(objPrecificacaoDTO.getPrecoProduto()));
+            pstm.setString(5, String.valueOf(objPrecificacaoDTO.getPrecoTotalProduto()));
+            pstm.setDate(6, objPrecificacaoDTO.getDataProduto());
+            pstm.setString(7, objPrecificacaoDTO.getIdProduto());
+
+            pstm.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Produto Alterado Com Sucesso");
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Classe PrecificacaoDao, Metodo AlterarProduto" + e.getMessage());
+        }
+    }
+
+    public void excluirProduto(PrecificacaoDTO objPrecificacaoDTO) {
+        String sql = "delete from tbprodutos where idproduto=?";
+
+        try {
+            conexao = new ConexaoDAO().conexaoBD();
+            pstm = conexao.prepareStatement(sql);
+            pstm.setString(1, objPrecificacaoDTO.getIdProduto());
+            int apagado = pstm.executeUpdate();
+            if (apagado > 0) {
+                JOptionPane.showMessageDialog(null, "Produto Excluido Com Sucesso");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Classe PrecificacaoDao, Metodo ExcluirProduto" + e.getMessage());
+        }
+    }
+
 }
