@@ -38,9 +38,11 @@ public class PrecificacaoDAO {
 
             pstm.setDate(6, objPrecificacaoDTO.getDataProduto());
 
-            pstm.execute();
+            boolean cadastrado = pstm.execute();
+            if (cadastrado == false) {
+                JOptionPane.showMessageDialog(null, "Produto Inserido Com Sucesso");
+            }
             pstm.close();
-            JOptionPane.showMessageDialog(null, "Produto Inserido Com Sucesso");
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Classe PrecificacaoDao, Metodo Cadastrar Produto" + e.getMessage());
         }
@@ -48,7 +50,7 @@ public class PrecificacaoDAO {
 
     public void pesquisarProduto() {
 
-        String sql = "select idproduto as Id, nome as Nome, dimensoes as Dimensoes, quantidade as Quantidade, preco as Preço, total as Total, data_produto as Data from tbprodutos where nome like ?";
+        String sql = "select idproduto as ID, nome as Nome, dimensoes as Dimensão, quantidade as Quantidade, preco as Preço/Un, total as Preço Total, data_produto as Data from tbprodutos where nome like ?";
 
         conexao = new ConexaoDAO().conexaoBD();
 
@@ -80,10 +82,12 @@ public class PrecificacaoDAO {
             pstm.setDate(6, objPrecificacaoDTO.getDataProduto());
             pstm.setString(7, objPrecificacaoDTO.getIdProduto());
 
-            pstm.executeUpdate();
+            int confirmado = pstm.executeUpdate();
+            if (confirmado > 0) {
+                JOptionPane.showMessageDialog(null, "Produto Alterado Com Sucesso");
+            }
             pstm.close();
 
-            JOptionPane.showMessageDialog(null, "Produto Alterado Com Sucesso");
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Classe PrecificacaoDao, Metodo AlterarProduto" + e.getMessage());
         }
