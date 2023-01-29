@@ -22,7 +22,6 @@ public class TelaPrecificacao extends javax.swing.JFrame {
     public TelaPrecificacao() {
 
         initComponents();
-
         txtDiaData.setText(String.valueOf(LocalDate.now().getDayOfMonth()));
         txtMesData.setText(String.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("MM"))));
         txtAnoData.setText(String.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("yy"))));
@@ -73,7 +72,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         lbl$2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Precificação Produtos");
+        setTitle("Gerencia de Produtos");
         setMinimumSize(new java.awt.Dimension(813, 609));
         setName("framePrecificação"); // NOI18N
         setSize(new java.awt.Dimension(800, 590));
@@ -86,24 +85,39 @@ public class TelaPrecificacao extends javax.swing.JFrame {
 
         jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        tblProdutos = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nome", "Dimensão", "Quantidade", "Preço/Un", "Preço Total", "Data"
             }
         ));
-        tblProdutos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblProdutos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tblProdutos.setDoubleBuffered(true);
+        tblProdutos.setFocusable(false);
+        tblProdutos.setShowGrid(false);
+        tblProdutos.getTableHeader().setReorderingAllowed(false);
         tblProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblProdutosMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblProdutos);
+        if (tblProdutos.getColumnModel().getColumnCount() > 0) {
+            tblProdutos.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tblProdutos.getColumnModel().getColumn(0).setMaxWidth(40);
+            tblProdutos.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tblProdutos.getColumnModel().getColumn(3).setMaxWidth(80);
+        }
 
         panelPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 770, 210));
 
@@ -335,7 +349,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
 
     private void txtPesquisaProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaProdutoKeyReleased
         new PrecificacaoDAO().pesquisarProduto();
-
+        personalizarTable();
     }//GEN-LAST:event_txtPesquisaProdutoKeyReleased
 
     private void txtDiaDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDiaDataKeyReleased
@@ -624,6 +638,11 @@ public class TelaPrecificacao extends javax.swing.JFrame {
             limparCampos();
             btnCadastrarProduto.setEnabled(true);
         }
+    }
+
+    private void personalizarTable() {
+        tblProdutos.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(40);
+        tblProdutos.getTableHeader().getColumnModel().getColumn(3).setMaxWidth(80);
     }
 
 }
