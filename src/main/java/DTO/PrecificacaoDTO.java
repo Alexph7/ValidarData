@@ -1,5 +1,7 @@
 package DTO;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Date;
 
 /**
@@ -8,12 +10,12 @@ import java.sql.Date;
  */
 public class PrecificacaoDTO {
 
-    private String nomeProduto, dimensoesProduto;
-    private int idProduto, quantidadeProduto;
+    private String nomeProduto, dimensoesProduto, idProduto;
+    private int quantidadeProduto;
     private double precoProduto, precoTotalProduto;
     private Date dataProduto;
 
-    public PrecificacaoDTO(String nomeProduto, String dimensoesProduto, int quantidadeProduto, double precoProduto, Date dataProduto) {
+    public PrecificacaoDTO(String nomeProduto, int quantidadeProduto, double precoProduto) {
 
         if (quantidadeProduto < 0) {
             throw new IllegalArgumentException("Quantidade Não Pode Ser Menor Que Zero");
@@ -23,10 +25,8 @@ public class PrecificacaoDTO {
         }
 
         this.nomeProduto = nomeProduto;
-        this.dimensoesProduto = dimensoesProduto;
         this.quantidadeProduto = quantidadeProduto;
         this.precoProduto = precoProduto;
-        this.dataProduto = dataProduto;
     }
 
     public String getNomeProduto() {
@@ -61,8 +61,12 @@ public class PrecificacaoDTO {
         this.precoProduto = precoProduto;
     }
 
-    public int getIdProduto() {
+    public String getIdProduto() {
         return idProduto;
+    }
+
+    public void setIdProduto(String idProduto) {
+        this.idProduto = idProduto;
     }
 
     public Date getDataProduto() {
@@ -73,9 +77,14 @@ public class PrecificacaoDTO {
         this.dataProduto = dataProduto;
     }
 
-    public double getPrecoTotalProduto() {
-        this.precoTotalProduto = this.quantidadeProduto * this.precoProduto;
-        return precoTotalProduto;
+    public BigDecimal getPrecoTotalProduto() {
+
+        BigDecimal precoUnProduto = new BigDecimal(String.valueOf(this.precoProduto));
+        BigDecimal precoTotalProduto = new BigDecimal(String.valueOf(this.precoTotalProduto));
+        BigDecimal quantidadeProduto = new BigDecimal(String.valueOf(this.quantidadeProduto));
+
+        precoTotalProduto = precoUnProduto.multiply(quantidadeProduto);
+        return precoTotalProduto.setScale(4, RoundingMode.HALF_EVEN);
     }
 
 }
