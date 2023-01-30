@@ -3,6 +3,7 @@ package DTO;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,8 +20,7 @@ public class PrecificacaoDTO {
 
         if (quantidadeProduto < 0) {
             throw new IllegalArgumentException("Quantidade Não Pode Ser Menor Que Zero");
-        }
-        if (precoProduto < 0) {
+        } else if (precoProduto < 0) {
             throw new IllegalArgumentException("Preço Do Produto Não Pode Ser Menor Que Zero");
         }
 
@@ -82,9 +82,12 @@ public class PrecificacaoDTO {
         BigDecimal precoUnProduto = new BigDecimal(String.valueOf(this.precoProduto));
         BigDecimal precoTotalProduto = new BigDecimal(String.valueOf(this.precoTotalProduto));
         BigDecimal quantidadeProduto = new BigDecimal(String.valueOf(this.quantidadeProduto));
-
-        precoTotalProduto = precoUnProduto.multiply(quantidadeProduto);
-        return precoTotalProduto.setScale(4, RoundingMode.HALF_EVEN);
+        try {
+            precoTotalProduto = precoUnProduto.multiply(quantidadeProduto);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Classe PrecificaçãoDTO MEtodo getPreçoTotalProduto " + e);
+        }
+        return precoTotalProduto.setScale(2, RoundingMode.HALF_EVEN);
     }
 
 }
