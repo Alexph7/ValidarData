@@ -33,8 +33,8 @@ public class PrecificacaoDAO {
             pstm.setString(1, objPrecificacaoDTO.getNomeProduto());
             pstm.setString(2, objPrecificacaoDTO.getDimensoesProduto());
             pstm.setString(3, String.valueOf(objPrecificacaoDTO.getQuantidadeProduto()));
-            pstm.setString(4, String.valueOf(objPrecificacaoDTO.getPrecoProduto()));
-            pstm.setString(5, String.valueOf(objPrecificacaoDTO.getPrecoTotalProduto()));
+            pstm.setString(4, String.valueOf(objPrecificacaoDTO.getPrecoProduto()).replace(".", ","));
+            pstm.setString(5, String.valueOf(objPrecificacaoDTO.getPrecoTotalProduto()).replace(".", ","));
 
             pstm.setDate(6, objPrecificacaoDTO.getDataProduto());
 
@@ -50,7 +50,7 @@ public class PrecificacaoDAO {
 
     public void pesquisarProduto() {
 
-        String sql = "select idproduto as ID, nome as Nome, dimensoes as Dimensão, quantidade as Quantidade, preco as Preço/Un, total as Preço Total, data_produto as Data from tbprodutos where nome like ?";
+        String sql = "select idproduto as ID, nome as Nome, dimensoes as Dimensão, quantidade as Quantidade, preco as 'Preço/Un', total as 'Preço Total', data_produto as Data from tbprodutos where nome like ?";
 
         conexao = new ConexaoDAO().conexaoBD();
 
@@ -77,8 +77,8 @@ public class PrecificacaoDAO {
             pstm.setString(1, objPrecificacaoDTO.getNomeProduto());
             pstm.setString(2, objPrecificacaoDTO.getDimensoesProduto());
             pstm.setString(3, String.valueOf(objPrecificacaoDTO.getQuantidadeProduto()));
-            pstm.setString(4, String.valueOf(objPrecificacaoDTO.getPrecoProduto()));
-            pstm.setString(5, String.valueOf(objPrecificacaoDTO.getPrecoTotalProduto()));
+            pstm.setString(4, String.valueOf(objPrecificacaoDTO.getPrecoProduto()).replace(".", ","));
+            pstm.setString(5, String.valueOf(objPrecificacaoDTO.getPrecoTotalProduto()).replace(".", ","));
             pstm.setDate(6, objPrecificacaoDTO.getDataProduto());
             pstm.setString(7, objPrecificacaoDTO.getIdProduto());
 
