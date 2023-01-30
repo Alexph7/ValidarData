@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  */
 public class PrecificacaoDTO {
 
-    private String nomeProduto, dimensoesProduto, idProduto;
+    private String nomeProduto, dimensoesProduto, idProduto, funcao;
     private int quantidadeProduto;
     private double precoProduto, precoTotalProduto;
     private Date dataProduto;
@@ -75,6 +75,14 @@ public class PrecificacaoDTO {
 
     public void setDataProduto(Date dataProduto) {
         this.dataProduto = dataProduto;
+    }
+
+    public String getFuncao() {
+        return funcao;
+    }
+
+    public void setFuncao(String funcao) {
+        this.funcao = funcao;
     }
 
     public BigDecimal getPrecoTotalProduto() {
