@@ -3,6 +3,8 @@ package VIEW;
 import DAO.PrecificacaoDAO;
 import DTO.PrecificacaoDTO;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -25,6 +27,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         txtDiaData.setText(String.valueOf(LocalDate.now().getDayOfMonth()));
         txtMesData.setText(String.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("MM"))));
         txtAnoData.setText(String.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("yy"))));
+        btnDeletarProduto.setEnabled(false);
 
     }
 
@@ -37,7 +40,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelPrincipal = new javax.swing.JPanel();
+        panelPrincipalProdutos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProdutos = new javax.swing.JTable();
         lblQuantidadeProduto = new javax.swing.JLabel();
@@ -46,8 +49,8 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         lblNomeProduto2 = new javax.swing.JLabel();
         lblPrecoUnProduto = new javax.swing.JLabel();
         txtPrecoUnProduto = new javax.swing.JTextField();
-        lblDimensaoProduto = new javax.swing.JLabel();
-        txtDimensaoProduto = new javax.swing.JTextField();
+        lblAlturaProduto = new javax.swing.JLabel();
+        txtAlturaProduto = new javax.swing.JTextField();
         lblNomeProduto = new javax.swing.JLabel();
         btnCadastrarProduto = new javax.swing.JButton();
         lblLimparCampoPesquisa = new javax.swing.JLabel();
@@ -70,18 +73,20 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         txtPrecoTotalProduto = new javax.swing.JTextField();
         lblTotalUnProduto = new javax.swing.JLabel();
         lbl$2 = new javax.swing.JLabel();
+        lblLarguraProduto = new javax.swing.JLabel();
+        txtLarguraProduto = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gerencia de Produtos");
         setMinimumSize(new java.awt.Dimension(813, 609));
-        setName("framePrecificação"); // NOI18N
+        setName("framePrecificacao"); // NOI18N
         setSize(new java.awt.Dimension(800, 590));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelPrincipal.setMinimumSize(new java.awt.Dimension(7, 7));
-        panelPrincipal.setPreferredSize(new java.awt.Dimension(813, 609));
-        panelPrincipal.setRequestFocusEnabled(false);
-        panelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelPrincipalProdutos.setMinimumSize(new java.awt.Dimension(800, 560));
+        panelPrincipalProdutos.setPreferredSize(new java.awt.Dimension(813, 609));
+        panelPrincipalProdutos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -119,10 +124,10 @@ public class TelaPrecificacao extends javax.swing.JFrame {
             tblProdutos.getColumnModel().getColumn(3).setMaxWidth(80);
         }
 
-        panelPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 770, 210));
+        panelPrincipalProdutos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 770, 210));
 
-        lblQuantidadeProduto.setText("*Quantidade");
-        panelPrincipal.add(lblQuantidadeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, -1, -1));
+        lblQuantidadeProduto.setText("*Quantidade/Chapas");
+        panelPrincipalProdutos.add(lblQuantidadeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, -1, -1));
 
         txtQuantidadeProduto.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
         txtQuantidadeProduto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -131,16 +136,16 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 txtQuantidadeProdutoKeyReleased(evt);
             }
         });
-        panelPrincipal.add(txtQuantidadeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 90, 33));
+        panelPrincipalProdutos.add(txtQuantidadeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 90, 33));
 
         txtNomeProduto.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
-        panelPrincipal.add(txtNomeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 396, 33));
+        panelPrincipalProdutos.add(txtNomeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 450, 33));
 
         lblNomeProduto2.setText("(*) Campos Obrigatórios");
-        panelPrincipal.add(lblNomeProduto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 280, 137, -1));
+        panelPrincipalProdutos.add(lblNomeProduto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 280, 130, -1));
 
         lblPrecoUnProduto.setText("*Preço/un");
-        panelPrincipal.add(lblPrecoUnProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, -1, -1));
+        panelPrincipalProdutos.add(lblPrecoUnProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 400, -1, -1));
 
         txtPrecoUnProduto.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
         txtPrecoUnProduto.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -148,17 +153,18 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 txtPrecoUnProdutoKeyReleased(evt);
             }
         });
-        panelPrincipal.add(txtPrecoUnProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 100, 33));
+        panelPrincipalProdutos.add(txtPrecoUnProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 100, 33));
 
-        lblDimensaoProduto.setText("Dimensoes");
-        panelPrincipal.add(lblDimensaoProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 300, -1, -1));
+        lblAlturaProduto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAlturaProduto.setText("*Altura");
+        panelPrincipalProdutos.add(lblAlturaProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 320, 50, -1));
 
-        txtDimensaoProduto.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
-        txtDimensaoProduto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        panelPrincipal.add(txtDimensaoProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 320, 160, 33));
+        txtAlturaProduto.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
+        txtAlturaProduto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        panelPrincipalProdutos.add(txtAlturaProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 340, 50, 33));
 
         lblNomeProduto.setText("*Nome/Produto");
-        panelPrincipal.add(lblNomeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
+        panelPrincipalProdutos.add(lblNomeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
 
         btnCadastrarProduto.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         btnCadastrarProduto.setText("Cadastrar");
@@ -168,7 +174,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 btnCadastrarProdutoActionPerformed(evt);
             }
         });
-        panelPrincipal.add(btnCadastrarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, 130, 40));
+        panelPrincipalProdutos.add(btnCadastrarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, 130, 40));
 
         lblLimparCampoPesquisa.setBackground(new java.awt.Color(255, 255, 255));
         lblLimparCampoPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -182,7 +188,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 lblLimparCampoPesquisaMouseClicked(evt);
             }
         });
-        panelPrincipal.add(lblLimparCampoPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 20, 30, 30));
+        panelPrincipalProdutos.add(lblLimparCampoPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, 30, 30));
 
         txtPesquisaProduto.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
         txtPesquisaProduto.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -190,11 +196,11 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 txtPesquisaProdutoKeyReleased(evt);
             }
         });
-        panelPrincipal.add(txtPesquisaProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 490, 30));
+        panelPrincipalProdutos.add(txtPesquisaProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 450, 30));
 
         lblIconPesquisar.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         lblIconPesquisar.setText("Icone Pesquisar");
-        panelPrincipal.add(lblIconPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, 30));
+        panelPrincipalProdutos.add(lblIconPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, 30));
 
         btnAlterarProduto.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         btnAlterarProduto.setText("Alterar");
@@ -204,7 +210,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 btnAlterarProdutoActionPerformed(evt);
             }
         });
-        panelPrincipal.add(btnAlterarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 490, 130, 40));
+        panelPrincipalProdutos.add(btnAlterarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 490, 130, 40));
 
         btnDeletarProduto.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         btnDeletarProduto.setText("Deletar");
@@ -215,10 +221,10 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 btnDeletarProdutoActionPerformed(evt);
             }
         });
-        panelPrincipal.add(btnDeletarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 490, 130, 40));
+        panelPrincipalProdutos.add(btnDeletarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 490, 130, 40));
 
         lblData.setText("Data");
-        panelPrincipal.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 390, -1, -1));
+        panelPrincipalProdutos.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 400, -1, -1));
 
         lblHome.setText("ICon Home");
         lblHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -227,7 +233,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 lblHomeMouseClicked(evt);
             }
         });
-        panelPrincipal.add(lblHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 50, 30));
+        panelPrincipalProdutos.add(lblHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 70, 30));
 
         txtResetData.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         txtResetData.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -238,7 +244,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 txtResetDataMouseClicked(evt);
             }
         });
-        panelPrincipal.add(txtResetData, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, 70, -1));
+        panelPrincipalProdutos.add(txtResetData, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 430, 70, 10));
 
         txtAnoData.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
         txtAnoData.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -247,11 +253,11 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 txtAnoDataKeyReleased(evt);
             }
         });
-        panelPrincipal.add(txtAnoData, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 410, 40, 30));
+        panelPrincipalProdutos.add(txtAnoData, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, 40, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel4.setText("/");
-        panelPrincipal.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 410, 20, -1));
+        panelPrincipalProdutos.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 420, 20, -1));
 
         txtDiaData.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
         txtDiaData.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -260,11 +266,11 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 txtDiaDataKeyReleased(evt);
             }
         });
-        panelPrincipal.add(txtDiaData, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 410, 40, 30));
+        panelPrincipalProdutos.add(txtDiaData, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 420, 40, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel5.setText("/");
-        panelPrincipal.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 410, 20, -1));
+        panelPrincipalProdutos.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, 20, -1));
 
         txtMesData.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
         txtMesData.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -273,21 +279,22 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 txtMesDataKeyReleased(evt);
             }
         });
-        panelPrincipal.add(txtMesData, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 410, 40, 30));
+        panelPrincipalProdutos.add(txtMesData, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 420, 40, 30));
 
+        lblId.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblId.setText("ID");
-        panelPrincipal.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 300, -1, -1));
+        panelPrincipalProdutos.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 320, 20, 20));
 
         txtIdProduto.setEditable(false);
         txtIdProduto.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
         txtIdProduto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtIdProduto.setFocusable(false);
-        panelPrincipal.add(txtIdProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 320, 60, 33));
+        panelPrincipalProdutos.add(txtIdProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 340, 60, 33));
 
         lbl$.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbl$.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lbl$.setText("R$");
-        panelPrincipal.add(lbl$, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 410, 30, 30));
+        panelPrincipalProdutos.add(lbl$, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 420, 30, 30));
 
         lblLimparTudo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLimparTudo.setText("Icon Limpar Tudo");
@@ -297,21 +304,34 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 lblLimparTudoMouseClicked(evt);
             }
         });
-        panelPrincipal.add(lblLimparTudo, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, 100, 30));
+        panelPrincipalProdutos.add(lblLimparTudo, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 20, 40, 30));
 
         txtPrecoTotalProduto.setEditable(false);
         txtPrecoTotalProduto.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
-        panelPrincipal.add(txtPrecoTotalProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 410, 100, 33));
+        panelPrincipalProdutos.add(txtPrecoTotalProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 420, 100, 33));
 
         lblTotalUnProduto.setText("Preço Total");
-        panelPrincipal.add(lblTotalUnProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 390, -1, -1));
+        panelPrincipalProdutos.add(lblTotalUnProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 400, -1, -1));
 
         lbl$2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbl$2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lbl$2.setText("R$");
-        panelPrincipal.add(lbl$2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 410, 30, 30));
+        panelPrincipalProdutos.add(lbl$2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 420, 30, 30));
 
-        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 560));
+        lblLarguraProduto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLarguraProduto.setText("*Largura");
+        panelPrincipalProdutos.add(lblLarguraProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 320, 50, -1));
+
+        txtLarguraProduto.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
+        txtLarguraProduto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        panelPrincipalProdutos.add(txtLarguraProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 340, 50, 33));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("x");
+        panelPrincipalProdutos.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 350, 20, 20));
+
+        getContentPane().add(panelPrincipalProdutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 560));
 
         setSize(new java.awt.Dimension(816, 568));
         setLocationRelativeTo(null);
@@ -373,6 +393,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
             setarCamposDaTabela();
             if (tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 1).equals(txtNomeProduto.getText())) {
                 btnCadastrarProduto.setEnabled(false);
+                btnDeletarProduto.setEnabled(true);
             }
         } catch (NullPointerException e) {
 
@@ -412,16 +433,18 @@ public class TelaPrecificacao extends javax.swing.JFrame {
     private javax.swing.JButton btnAlterarProduto;
     private javax.swing.JButton btnCadastrarProduto;
     private javax.swing.JButton btnDeletarProduto;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl$;
     private javax.swing.JLabel lbl$2;
+    private javax.swing.JLabel lblAlturaProduto;
     private javax.swing.JLabel lblData;
-    private javax.swing.JLabel lblDimensaoProduto;
     private javax.swing.JLabel lblHome;
     private javax.swing.JLabel lblIconPesquisar;
     private javax.swing.JLabel lblId;
+    private javax.swing.JLabel lblLarguraProduto;
     private javax.swing.JLabel lblLimparCampoPesquisa;
     private javax.swing.JLabel lblLimparTudo;
     private javax.swing.JLabel lblNomeProduto;
@@ -429,12 +452,13 @@ public class TelaPrecificacao extends javax.swing.JFrame {
     private javax.swing.JLabel lblPrecoUnProduto;
     private javax.swing.JLabel lblQuantidadeProduto;
     private javax.swing.JLabel lblTotalUnProduto;
-    private javax.swing.JPanel panelPrincipal;
+    private javax.swing.JPanel panelPrincipalProdutos;
     public static javax.swing.JTable tblProdutos;
+    private javax.swing.JTextField txtAlturaProduto;
     private javax.swing.JTextField txtAnoData;
     private javax.swing.JTextField txtDiaData;
-    private javax.swing.JTextField txtDimensaoProduto;
     private javax.swing.JTextField txtIdProduto;
+    private javax.swing.JTextField txtLarguraProduto;
     private javax.swing.JTextField txtMesData;
     private javax.swing.JTextField txtNomeProduto;
     public static javax.swing.JTextField txtPesquisaProduto;
@@ -466,7 +490,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
             txtPrecoUnProduto.requestFocus();
         } else {
             String nomeProduto = txtNomeProduto.getText();
-            String dimensoes = txtDimensaoProduto.getText();
+            String dimensoes = txtAlturaProduto.getText();
             int quantidade = Integer.parseInt(txtQuantidadeProduto.getText());
             double precoProduto = Double.parseDouble(txtPrecoUnProduto.getText().replace(",", "."));
             try {
@@ -492,7 +516,8 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         txtPesquisaProduto.setText(null);
         ((DefaultTableModel) tblProdutos.getModel()).setRowCount(0);
         txtNomeProduto.setText(null);
-        txtDimensaoProduto.setText(null);
+        txtAlturaProduto.setText(null);
+        txtLarguraProduto.setText(null);
         txtIdProduto.setText(null);
         txtQuantidadeProduto.setText(null);
         txtPrecoUnProduto.setText(null);
@@ -547,7 +572,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
 
         txtIdProduto.setText(tblProdutos.getModel().getValueAt(setar, 0).toString());
         txtNomeProduto.setText(tblProdutos.getModel().getValueAt(setar, 1).toString());
-        txtDimensaoProduto.setText(tblProdutos.getModel().getValueAt(setar, 2).toString());
+        txtAlturaProduto.setText(tblProdutos.getModel().getValueAt(setar, 2).toString());
         txtQuantidadeProduto.setText(tblProdutos.getModel().getValueAt(setar, 3).toString());
         txtPrecoUnProduto.setText(tblProdutos.getModel().getValueAt(setar, 4).toString().replace(".", ",")
         );
@@ -580,15 +605,15 @@ public class TelaPrecificacao extends javax.swing.JFrame {
             txtDiaData.requestFocus();
         } else {
             String nomeProduto = txtNomeProduto.getText();
-            String dimensoes = txtDimensaoProduto.getText();
             int quantidade = Integer.parseInt(txtQuantidadeProduto.getText());
+            double altura = Double.parseDouble(txtAlturaProduto.getText());
+            double largura = Double.parseDouble(txtAlturaProduto.getText());
             double precoProduto = Double.parseDouble(txtPrecoUnProduto.getText().replace(",", "."));
             try {
                 Date dataProduto = Date.valueOf(validarData(txtDiaData.getText(), txtMesData.getText(), txtAnoData.getText()));
 
-                PrecificacaoDTO objPrecificacaoDTO = new PrecificacaoDTO(nomeProduto, quantidade, precoProduto);
+                PrecificacaoDTO objPrecificacaoDTO = new PrecificacaoDTO(nomeProduto, quantidade, altura, largura, precoProduto);
                 objPrecificacaoDTO.setIdProduto(txtIdProduto.getText());
-                objPrecificacaoDTO.setDimensoesProduto(dimensoes);
                 objPrecificacaoDTO.setDataProduto(dataProduto);
 
                 new PrecificacaoDAO().alterarProduto(objPrecificacaoDTO);
@@ -605,8 +630,8 @@ public class TelaPrecificacao extends javax.swing.JFrame {
     }
 
     /**
-     * Método Chama o Calculo da Quantidade de Produtos x O Preço do Produto da
-     * Classe DTO
+     * Método Chama o Calculo da Quantidade de Produtos x o Preço do Produto da
+     * Classe DTO para passar o total para o Form
      */
     private void setarPrecoTotal() {
 
@@ -616,7 +641,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
 
             PrecificacaoDTO objPrecificacaoDTO = new PrecificacaoDTO(txtNomeProduto.getText(), quantidade, precoUn);
 
-            double total = objPrecificacaoDTO.getPrecoTotalProduto();
+            BigDecimal total = objPrecificacaoDTO.getPrecoTotalProduto().setScale(2, RoundingMode.HALF_EVEN);
 
             txtPrecoTotalProduto.setText(String.valueOf(total).replace(".", ","));
         } catch (NumberFormatException e) {
