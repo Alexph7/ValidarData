@@ -11,9 +11,9 @@ import javax.swing.JOptionPane;
  */
 public class PrecificacaoDTO {
 
-    private String nomeProduto, dimensoesProduto, idProduto;
+    private String nomeProduto, idProduto;
     private int quantidadeProduto;
-    private double precoProduto, precoTotalProduto;
+    private double precoProduto, precoTotalProduto, largura, altura;
     private Date dataProduto;
 
     public PrecificacaoDTO(String nomeProduto, int quantidadeProduto, double precoProduto) {
@@ -29,20 +29,31 @@ public class PrecificacaoDTO {
         this.precoProduto = precoProduto;
     }
 
+    public PrecificacaoDTO(String nomeProduto, int quantidadeProduto, double precoProduto, double largura, double altura) {
+
+        if (quantidadeProduto < 0) {
+            throw new IllegalArgumentException("Quantidade Não Pode Ser Menor Que Zero");
+        } else if (precoProduto < 0) {
+            throw new IllegalArgumentException("Preço Do Produto Não Pode Ser Menor Que Zero");
+        } else if (largura <= 0) {
+            throw new IllegalArgumentException("Largura Do Produto Não Pode Ser Menor ou Igual a Zero");
+        } else if (altura <= 0) {
+            throw new IllegalArgumentException("Altura Do Produto Não Pode Ser Menor ou Igual a Zero");
+        }
+
+        this.nomeProduto = nomeProduto;
+        this.quantidadeProduto = quantidadeProduto;
+        this.precoProduto = precoProduto;
+        this.altura = altura;
+        this.largura = largura;
+    }
+
     public String getNomeProduto() {
         return nomeProduto;
     }
 
     public void setNomeProduto(String nomeProduto) {
         this.nomeProduto = nomeProduto;
-    }
-
-    public String getDimensoesProduto() {
-        return dimensoesProduto;
-    }
-
-    public void setDimensoesProduto(String dimensoesProduto) {
-        this.dimensoesProduto = dimensoesProduto;
     }
 
     public int getQuantidadeProduto() {
@@ -75,6 +86,28 @@ public class PrecificacaoDTO {
 
     public void setDataProduto(Date dataProduto) {
         this.dataProduto = dataProduto;
+    }
+
+    public double getLargura() {
+        return largura;
+    }
+
+    public void setLargura(double Largura) {
+        if (largura <= 0) {
+            throw new IllegalArgumentException("Largura Do Produto Não Pode Ser Menor ou Igual a Zero");
+        }
+        this.largura = Largura;
+    }
+
+    public double getAltura() {
+        return altura;
+    }
+
+    public void setAltura(double altura) {
+        if (altura <= 0) {
+            throw new IllegalArgumentException("Altura Do Produto Não Pode Ser Menor ou Igual a Zero");
+        }
+        this.altura = altura;
     }
 
     public BigDecimal getPrecoTotalProduto() {
