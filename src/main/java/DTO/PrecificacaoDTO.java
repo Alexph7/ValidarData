@@ -79,8 +79,8 @@ public class PrecificacaoDTO {
 
     public BigDecimal getPrecoTotalProduto() {
 
-        BigDecimal precoUnProduto = new BigDecimal(String.valueOf(this.precoProduto));
-        BigDecimal precoTotalProduto = new BigDecimal(String.valueOf(this.precoTotalProduto));
+        BigDecimal precoUnProduto = new BigDecimal(String.valueOf(this.precoProduto)).setScale(4, RoundingMode.HALF_EVEN);
+        BigDecimal precoTotalProduto = new BigDecimal(String.valueOf(this.precoTotalProduto)).setScale(4, RoundingMode.HALF_EVEN);
         BigDecimal quantidadeProduto = new BigDecimal(String.valueOf(this.quantidadeProduto));
         try {
             precoTotalProduto = precoUnProduto.multiply(quantidadeProduto);
