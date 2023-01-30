@@ -97,13 +97,13 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         };
         tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Dimensão", "Quantidade", "Preço/Un", "Preço Total", "Data"
+                "ID", "Nome", "Quantidade", "Altura", "Largura", "Preço/Un", "Preço Total", "Data"
             }
         ));
         tblProdutos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -120,11 +120,11 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         if (tblProdutos.getColumnModel().getColumnCount() > 0) {
             tblProdutos.getColumnModel().getColumn(0).setPreferredWidth(40);
             tblProdutos.getColumnModel().getColumn(0).setMaxWidth(40);
-            tblProdutos.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tblProdutos.getColumnModel().getColumn(3).setMaxWidth(80);
+            tblProdutos.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tblProdutos.getColumnModel().getColumn(2).setMaxWidth(80);
         }
 
-        panelPrincipalProdutos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 770, 210));
+        panelPrincipalProdutos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 770, 220));
 
         lblQuantidadeProduto.setText("*Quantidade/Chapas");
         panelPrincipalProdutos.add(lblQuantidadeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, -1, -1));
@@ -142,7 +142,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         panelPrincipalProdutos.add(txtNomeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 450, 33));
 
         lblNomeProduto2.setText("(*) Campos Obrigatórios");
-        panelPrincipalProdutos.add(lblNomeProduto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 280, 130, -1));
+        panelPrincipalProdutos.add(lblNomeProduto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 290, 130, -1));
 
         lblPrecoUnProduto.setText("*Preço/un");
         panelPrincipalProdutos.add(lblPrecoUnProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 400, -1, -1));
@@ -304,7 +304,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
                 lblLimparTudoMouseClicked(evt);
             }
         });
-        panelPrincipalProdutos.add(lblLimparTudo, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 20, 40, 30));
+        panelPrincipalProdutos.add(lblLimparTudo, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, 100, 30));
 
         txtPrecoTotalProduto.setEditable(false);
         txtPrecoTotalProduto.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
@@ -350,7 +350,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarProdutoActionPerformed
 
     private void txtQuantidadeProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeProdutoKeyReleased
-        aceitarSoNumeros(txtQuantidadeProduto);
+        aceitarSoNumerosNosCampos(txtQuantidadeProduto);
         setarPrecoTotal();
     }//GEN-LAST:event_txtQuantidadeProdutoKeyReleased
 
@@ -373,15 +373,15 @@ public class TelaPrecificacao extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaProdutoKeyReleased
 
     private void txtDiaDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDiaDataKeyReleased
-        aceitarSoNumeros(txtDiaData);
+        aceitarSoNumerosNosCampos(txtDiaData);
     }//GEN-LAST:event_txtDiaDataKeyReleased
 
     private void txtMesDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMesDataKeyReleased
-        aceitarSoNumeros(txtMesData);
+        aceitarSoNumerosNosCampos(txtMesData);
     }//GEN-LAST:event_txtMesDataKeyReleased
 
     private void txtAnoDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnoDataKeyReleased
-        aceitarSoNumeros(txtAnoData);
+        aceitarSoNumerosNosCampos(txtAnoData);
     }//GEN-LAST:event_txtAnoDataKeyReleased
 
     private void lblLimparCampoPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLimparCampoPesquisaMouseClicked
@@ -490,15 +490,15 @@ public class TelaPrecificacao extends javax.swing.JFrame {
             txtPrecoUnProduto.requestFocus();
         } else {
             String nomeProduto = txtNomeProduto.getText();
-            String dimensoes = txtAlturaProduto.getText();
+            double altura = Double.parseDouble(txtAlturaProduto.getText());
+            double largura = Double.parseDouble(txtLarguraProduto.getText());
             int quantidade = Integer.parseInt(txtQuantidadeProduto.getText());
             double precoProduto = Double.parseDouble(txtPrecoUnProduto.getText().replace(",", "."));
             try {
 
                 Date dataProduto = Date.valueOf(validarData(txtDiaData.getText(), txtMesData.getText(), txtAnoData.getText()));
 
-                PrecificacaoDTO objPrecificacaoDTO = new PrecificacaoDTO(nomeProduto, quantidade, precoProduto);
-                objPrecificacaoDTO.setDimensoesProduto(dimensoes);
+                PrecificacaoDTO objPrecificacaoDTO = new PrecificacaoDTO(nomeProduto, quantidade, altura, largura, precoProduto);
                 objPrecificacaoDTO.setDataProduto(dataProduto);
 
                 PrecificacaoDAO objPrecificacaoDAO = new PrecificacaoDAO();
@@ -524,7 +524,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         txtPrecoTotalProduto.setText(null);
     }
 
-    public void aceitarSoNumeros(JTextField jtextfield) {
+    public void aceitarSoNumerosNosCampos(JTextField jtextfield) {
 
         jtextfield.setText(jtextfield.getText().replaceAll("[^0-9]", ""));
     }
@@ -572,17 +572,20 @@ public class TelaPrecificacao extends javax.swing.JFrame {
 
         txtIdProduto.setText(tblProdutos.getModel().getValueAt(setar, 0).toString());
         txtNomeProduto.setText(tblProdutos.getModel().getValueAt(setar, 1).toString());
-        txtAlturaProduto.setText(tblProdutos.getModel().getValueAt(setar, 2).toString());
-        txtQuantidadeProduto.setText(tblProdutos.getModel().getValueAt(setar, 3).toString());
-        txtPrecoUnProduto.setText(tblProdutos.getModel().getValueAt(setar, 4).toString().replace(".", ",")
+
+        txtQuantidadeProduto.setText(tblProdutos.getModel().getValueAt(setar, 2).toString());
+        txtAlturaProduto.setText(tblProdutos.getModel().getValueAt(setar, 3).toString());
+        txtLarguraProduto.setText(tblProdutos.getModel().getValueAt(setar, 4).toString());
+
+        txtPrecoUnProduto.setText(tblProdutos.getModel().getValueAt(setar, 5).toString().replace(".", ",")
         );
-        txtPrecoTotalProduto.setText(tblProdutos.getModel().getValueAt(setar, 5).toString().replace(".", ",")
+        txtPrecoTotalProduto.setText(tblProdutos.getModel().getValueAt(setar, 6).toString().replace(".", ",")
         );
 
-        String diaTabela = tblProdutos.getModel().getValueAt(setar, 6).toString();
-        String[] diaParaForm = diaTabela.split("-");
+        String diaTabela = tblProdutos.getModel().getValueAt(setar, 7).toString();
+        String[] diaParaForm = diaTabela.split("-"); //Pega o dia da Tabela no Formato aaaa/MM/dd e Separa em 3 partes em um array partes dia, mes e ano
 
-        String[] anoDuaPosicoes = diaParaForm[0].split("");
+        String[] anoDuaPosicoes = diaParaForm[0].split("");//pega as ultima dua posições do ano para setar no campo data
         txtAnoData.setText(anoDuaPosicoes[2] + anoDuaPosicoes[3]);
         txtMesData.setText(diaParaForm[1]);
         txtDiaData.setText(diaParaForm[2]);
