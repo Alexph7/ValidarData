@@ -157,11 +157,11 @@ public class TelaPrecificacao extends javax.swing.JFrame {
 
         lblAlturaProduto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAlturaProduto.setText("*Altura");
-        panelPrincipalProdutos.add(lblAlturaProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 320, 40, -1));
+        panelPrincipalProdutos.add(lblAlturaProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 320, 40, -1));
 
         txtAlturaProduto.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
         txtAlturaProduto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        panelPrincipalProdutos.add(txtAlturaProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 340, 50, 33));
+        panelPrincipalProdutos.add(txtAlturaProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 340, 60, 33));
 
         lblNomeProduto.setText("*Nome/Produto");
         panelPrincipalProdutos.add(lblNomeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
@@ -199,8 +199,8 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         panelPrincipalProdutos.add(txtPesquisaProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 480, 30));
 
         lblIconPesquisar.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        lblIconPesquisar.setText("Icone Pesquisar");
-        panelPrincipalProdutos.add(lblIconPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, 30));
+        lblIconPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search-icon36x36.png"))); // NOI18N
+        panelPrincipalProdutos.add(lblIconPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 40, 40));
 
         btnAlterarProduto.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         btnAlterarProduto.setText("Alterar");
@@ -226,14 +226,14 @@ public class TelaPrecificacao extends javax.swing.JFrame {
         lblData.setText("Data");
         panelPrincipalProdutos.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 400, -1, -1));
 
-        lblHome.setText("ICon Home");
+        lblHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/home-icon.png"))); // NOI18N
         lblHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblHome.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblHomeMouseClicked(evt);
             }
         });
-        panelPrincipalProdutos.add(lblHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 70, 30));
+        panelPrincipalProdutos.add(lblHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 50));
 
         txtResetData.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         txtResetData.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -326,7 +326,7 @@ public class TelaPrecificacao extends javax.swing.JFrame {
 
         txtLarguraProduto.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
         txtLarguraProduto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        panelPrincipalProdutos.add(txtLarguraProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 340, 50, 33));
+        panelPrincipalProdutos.add(txtLarguraProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 340, 60, 33));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("x");
