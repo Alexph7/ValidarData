@@ -13,38 +13,19 @@ public class PrecificacaoDTO {
 
     private String nomeProduto, idProduto;
     private int quantidadeProduto;
-    private double altura, largura, precoProduto, precoTotalProduto;
+    private double precoProduto, precoTotalProduto;
     private Date dataProduto;
 
     public PrecificacaoDTO(String nomeProduto, int quantidadeProduto, double precoProduto) {
 
         if (quantidadeProduto < 0) {
-            throw new IllegalArgumentException("Quantidade Não Pode Ser Menor do Que Zero");
-        } else if (precoProduto < 0) {
-            throw new IllegalArgumentException("Preço Do Produto Não Pode Ser Menor Que Zero");
-        }
-
-        this.nomeProduto = nomeProduto;
-        this.quantidadeProduto = quantidadeProduto;
-        this.precoProduto = precoProduto;
-    }
-
-    public PrecificacaoDTO(String nomeProduto, int quantidadeProduto, double altura, double largura, double precoProduto) {
-
-        if (quantidadeProduto < 0) {
             throw new IllegalArgumentException("Quantidade Não Pode Ser Menor Que Zero");
-        } else if (altura <= 0) {
-            throw new IllegalArgumentException("Largura Do Produto Não Pode Ser Menor ou Igual a Zero");
-        } else if (largura <= 0) {
-            throw new IllegalArgumentException("Altura Do Produto Não Pode Ser Menor ou Igual a Zero");
         } else if (precoProduto < 0) {
             throw new IllegalArgumentException("Preço Do Produto Não Pode Ser Menor Que Zero");
         }
 
         this.nomeProduto = nomeProduto;
         this.quantidadeProduto = quantidadeProduto;
-        this.altura = altura;
-        this.largura = largura;
         this.precoProduto = precoProduto;
     }
 
@@ -86,28 +67,6 @@ public class PrecificacaoDTO {
 
     public void setDataProduto(Date dataProduto) {
         this.dataProduto = dataProduto;
-    }
-
-    public double getAltura() {
-        return altura;
-    }
-
-    public void setAltura(double altura) {
-        if (altura <= 0) {
-            throw new IllegalArgumentException("Altura Do Produto Não Pode Ser Menor ou Igual a Zero");
-        }
-        this.altura = altura;
-    }
-
-    public double getLargura() {
-        return largura;
-    }
-
-    public void setLargura(double Largura) {
-        if (largura <= 0) {
-            throw new IllegalArgumentException("Largura Do Produto Não Pode Ser Menor ou Igual a Zero");
-        }
-        this.largura = Largura;
     }
 
     public BigDecimal getPrecoTotalProduto() {
