@@ -19,7 +19,7 @@ public class PrecificacaoDTO {
     public PrecificacaoDTO(String nomeProduto, int quantidadeProduto, double precoProduto) {
 
         if (quantidadeProduto < 0) {
-            throw new IllegalArgumentException("Quantidade Não Pode Ser Menor Que Zero");
+            throw new IllegalArgumentException("Quantidade Não Pode Ser Menor do Que Zero");
         } else if (precoProduto < 0) {
             throw new IllegalArgumentException("Preço Do Produto Não Pode Ser Menor Que Zero");
         }
