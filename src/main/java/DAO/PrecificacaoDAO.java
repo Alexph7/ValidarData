@@ -24,20 +24,17 @@ public class PrecificacaoDAO {
      */
     public void cadastrarProduto(PrecificacaoDTO objPrecificacaoDTO) {
 
-        String sql = "insert into tbprodutos(nome,altura,largura,quantidade,preco,total,data_produto) values(?,?,?,?,?,?,?);";
+        String sql = "insert into tbprodutos(nome,quantidade,preco,data_produto) values(?,?,?,?);";
 
         conexao = new ConexaoDAO().conexaoBD();
 
         try {
             pstm = conexao.prepareStatement(sql);
             pstm.setString(1, objPrecificacaoDTO.getNomeProduto());
-            pstm.setString(2, String.valueOf(objPrecificacaoDTO.getAltura()).replace(".", ","));
-            pstm.setString(3, String.valueOf(objPrecificacaoDTO.getLargura()).replace(".", ","));
-            pstm.setString(4, String.valueOf(objPrecificacaoDTO.getQuantidadeProduto()));
-            pstm.setString(5, String.valueOf(objPrecificacaoDTO.getPrecoProduto()).replace(".", ","));
-            pstm.setString(6, String.valueOf(objPrecificacaoDTO.getPrecoTotalProduto()).replace(".", ","));
+            pstm.setString(2, String.valueOf(objPrecificacaoDTO.getQuantidadeProduto()));
+            pstm.setString(3, String.valueOf(objPrecificacaoDTO.getPrecoProduto()).replace(".", ","));
 
-            pstm.setDate(7, objPrecificacaoDTO.getDataProduto());
+            pstm.setDate(4, objPrecificacaoDTO.getDataProduto());
 
             boolean cadastrado = pstm.execute();
             if (cadastrado == false) {
@@ -51,7 +48,7 @@ public class PrecificacaoDAO {
 
     public void pesquisarProduto() {
 
-        String sql = "select idproduto as ID, nome as Nome, quantidade as Quantidade, altura as Atura, largura as Largura, preco as 'Preço/Un', total as 'Preço Total', data_produto as Data from tbprodutos where nome like ?";
+        String sql = "select idproduto as ID, nome as Nome, quantidade as Quantidade, preco as 'Preço/Un', data_produto as Data from tbprodutos where nome like ?";
 
         conexao = new ConexaoDAO().conexaoBD();
 
@@ -70,19 +67,16 @@ public class PrecificacaoDAO {
 
     public void alterarProduto(PrecificacaoDTO objPrecificacaoDTO) {
 
-        String sql = "update tbprodutos set nome=?,dimensoes=?,quantidade=?,preco=?,total=?,data_produto=? where idproduto=?";
+        String sql = "update tbprodutos set nome=?,quantidade=?,preco=?,data_produto=? where idproduto=?";
 
         try {
             conexao = new ConexaoDAO().conexaoBD();
             pstm = conexao.prepareStatement(sql);
             pstm.setString(1, objPrecificacaoDTO.getNomeProduto());
-            pstm.setString(2, String.valueOf(objPrecificacaoDTO.getAltura()).replace(".", ","));
-            pstm.setString(3, String.valueOf(objPrecificacaoDTO.getLargura()).replace(".", ","));
-            pstm.setString(4, String.valueOf(objPrecificacaoDTO.getQuantidadeProduto()));
-            pstm.setString(5, String.valueOf(objPrecificacaoDTO.getPrecoProduto()).replace(".", ","));
-            pstm.setString(6, String.valueOf(objPrecificacaoDTO.getPrecoTotalProduto()).replace(".", ","));
-            pstm.setDate(7, objPrecificacaoDTO.getDataProduto());
-            pstm.setString(8, objPrecificacaoDTO.getIdProduto());
+            pstm.setString(2, String.valueOf(objPrecificacaoDTO.getQuantidadeProduto()));
+            pstm.setString(3, String.valueOf(objPrecificacaoDTO.getPrecoProduto()).replace(".", ","));
+            pstm.setDate(4, objPrecificacaoDTO.getDataProduto());
+            pstm.setString(5, objPrecificacaoDTO.getIdProduto());
 
             int confirmado = pstm.executeUpdate();
             if (confirmado > 0) {
