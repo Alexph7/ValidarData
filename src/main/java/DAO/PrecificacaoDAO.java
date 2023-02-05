@@ -1,13 +1,14 @@
 package DAO;
 
 import DTO.PrecificacaoDTO;
-import VIEW.TelaPrecificacao;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import net.proteanit.sql.DbUtils;
 
 public class PrecificacaoDAO {
@@ -46,7 +47,7 @@ public class PrecificacaoDAO {
         }
     }
 
-    public void pesquisarProduto() {
+    public void pesquisarProduto(JTextField textFieldPesquisa, JTable tabela) {
 
         String sql = "select idproduto as ID, nome as Nome, quantidade as Quantidade, preco as 'Preço/Un', data_produto as Data from tbprodutos where nome like ?";
 
@@ -54,10 +55,10 @@ public class PrecificacaoDAO {
 
         try {
             pstm = conexao.prepareStatement(sql);
-            pstm.setString(1, TelaPrecificacao.txtPesquisaProduto.getText() + "%");
+            pstm.setString(1, textFieldPesquisa.getText() + "%");
             rs = pstm.executeQuery();
 
-            TelaPrecificacao.tblProdutos.setModel(DbUtils.resultSetToTableModel(rs));
+            tabela.setModel(DbUtils.resultSetToTableModel(rs));
             pstm.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Classe PrecificacaoDao, Metodo Pesquisar Produto" + e.getMessage());
