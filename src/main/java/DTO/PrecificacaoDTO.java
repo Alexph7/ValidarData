@@ -1,9 +1,6 @@
 package DTO;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.sql.Date;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,7 +10,7 @@ public class PrecificacaoDTO {
 
     private String nomeProduto, idProduto;
     private int quantidadeProduto;
-    private double precoProduto, precoTotalProduto;
+    private double precoProduto;
     private Date dataProduto;
 
     public PrecificacaoDTO(String nomeProduto, int quantidadeProduto, double precoProduto) {
@@ -67,19 +64,6 @@ public class PrecificacaoDTO {
 
     public void setDataProduto(Date dataProduto) {
         this.dataProduto = dataProduto;
-    }
-
-    public BigDecimal getPrecoTotalProduto() {
-
-        BigDecimal precoUnProduto = new BigDecimal(String.valueOf(this.precoProduto)).setScale(4, RoundingMode.HALF_EVEN);
-        BigDecimal precoTotalProduto = new BigDecimal(String.valueOf(this.precoTotalProduto)).setScale(4, RoundingMode.HALF_EVEN);
-        BigDecimal quantidadeProduto = new BigDecimal(String.valueOf(this.quantidadeProduto));
-        try {
-            precoTotalProduto = precoUnProduto.multiply(quantidadeProduto);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Classe PrecificaçãoDTO MEtodo getPreçoTotalProduto " + e);
-        }
-        return precoTotalProduto.setScale(2, RoundingMode.HALF_EVEN);
     }
 
 }
