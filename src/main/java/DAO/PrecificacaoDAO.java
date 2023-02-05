@@ -77,7 +77,7 @@ public class PrecificacaoDAO {
             pstm.setString(2, String.valueOf(objPrecificacaoDTO.getQuantidadeProduto()));
             pstm.setString(3, String.valueOf(objPrecificacaoDTO.getPrecoProduto()).replace(".", ","));
             pstm.setDate(4, objPrecificacaoDTO.getDataProduto());
-            pstm.setString(5, objPrecificacaoDTO.getIdProduto());
+            pstm.setString(5, String.valueOf(objPrecificacaoDTO.getIdProduto()));
 
             int confirmado = pstm.executeUpdate();
             if (confirmado > 0) {
@@ -96,7 +96,7 @@ public class PrecificacaoDAO {
         try {
             conexao = new ConexaoDAO().conexaoBD();
             pstm = conexao.prepareStatement(sql);
-            pstm.setString(1, objPrecificacaoDTO.getIdProduto());
+            pstm.setString(1, String.valueOf(objPrecificacaoDTO.getIdProduto()));
             int apagado = pstm.executeUpdate();
             if (apagado > 0) {
                 JOptionPane.showMessageDialog(null, "Produto Excluido Com Sucesso");
