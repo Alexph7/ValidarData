@@ -1,15 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package VIEW;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import javax.swing.UIManager;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 /**
  *
- * @author ph757
+ * @author Alexph7
  */
 public class Menu extends javax.swing.JFrame {
 
@@ -18,14 +16,13 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
-        estilosDasFontes();
 
-    }
+        DateTimeFormatter objDateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
 
-    private void estilosDasFontes() {
-        lblNomeEmpresa.putClientProperty("FlatLaf.style", "font: 200% $light.font");
-        lblData.putClientProperty("FlatLaf.style", "font: 200% $light.font");
-        lblHora.putClientProperty("FlatLaf.style", "font: 200% $light.font");
+        LocalDateTime objLocalDateTime = LocalDateTime.now();
+
+        String saidaDataHora = objDateTimeFormatter.format(objLocalDateTime);
+        lblDataAgora.setText(saidaDataHora);
 
     }
 
@@ -41,24 +38,26 @@ public class Menu extends javax.swing.JFrame {
         panelPrincipal = new javax.swing.JPanel();
         panelNomeEmpresa = new javax.swing.JPanel();
         lblNomeEmpresa = new javax.swing.JLabel();
-        lblData = new javax.swing.JLabel();
-        lblHora = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jPanel1 = new javax.swing.JPanel();
-        btnPrecificacao = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        lblDataAgora = new javax.swing.JLabel();
+        panelMenuLateral = new javax.swing.JPanel();
+        btnMenuPrecificacao = new javax.swing.JButton();
+        btnMenuOrcamento = new javax.swing.JButton();
+        btnMenuRelatorio = new javax.swing.JButton();
+        btnMenuEstoque = new javax.swing.JButton();
+        btnMenuSobre = new javax.swing.JButton();
+        btnMenuEstoque1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(695, 480));
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         panelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelNomeEmpresa.setBackground(new java.awt.Color(51, 51, 255));
+        panelNomeEmpresa.setBackground(new java.awt.Color(88, 0, 113));
         panelNomeEmpresa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblNomeEmpresa.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
@@ -66,82 +65,115 @@ public class Menu extends javax.swing.JFrame {
         lblNomeEmpresa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNomeEmpresa.setText("MARCENARIA MAIS CRIATIVA");
         lblNomeEmpresa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        panelNomeEmpresa.add(lblNomeEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 40));
+        panelNomeEmpresa.add(lblNomeEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 60));
+        panelNomeEmpresa.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 480, 10));
 
-        lblData.setForeground(new java.awt.Color(255, 255, 255));
-        lblData.setText("Data");
-        panelNomeEmpresa.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 100, -1));
+        lblDataAgora.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblDataAgora.setForeground(new java.awt.Color(255, 255, 255));
+        lblDataAgora.setText("Data Aparecerá Aqui");
+        panelNomeEmpresa.add(lblDataAgora, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 280, 30));
 
-        lblHora.setForeground(new java.awt.Color(255, 255, 255));
-        lblHora.setText("Hora");
-        panelNomeEmpresa.add(lblHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 60, -1));
-        panelNomeEmpresa.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 340, 10));
+        panelPrincipal.add(panelNomeEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 120));
 
-        panelPrincipal.add(panelNomeEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 80));
+        panelMenuLateral.setBackground(new java.awt.Color(88, 0, 113));
+        panelMenuLateral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnPrecificacao.setText("Precificação");
-        btnPrecificacao.addActionListener(new java.awt.event.ActionListener() {
+        btnMenuPrecificacao.setText("Precificação");
+        btnMenuPrecificacao.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMenuPrecificacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrecificacaoActionPerformed(evt);
+                btnMenuPrecificacaoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnPrecificacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 60));
+        panelMenuLateral.add(btnMenuPrecificacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 10, 180, 50));
 
-        jButton3.setText("Orçamento");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 190, 60));
-
-        jButton6.setText("Relatório");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnMenuOrcamento.setText("Orçamento");
+        btnMenuOrcamento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMenuOrcamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnMenuOrcamentoActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 190, 60));
+        panelMenuLateral.add(btnMenuOrcamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 70, 180, 50));
 
-        jButton5.setText("Estoque");
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 190, 60));
+        btnMenuRelatorio.setText("Relatório");
+        btnMenuRelatorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMenuRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuRelatorioActionPerformed(evt);
+            }
+        });
+        panelMenuLateral.add(btnMenuRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 130, 180, 50));
 
-        jButton1.setText("Sobre");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 190, 60));
+        btnMenuEstoque.setText("Recibo");
+        btnMenuEstoque.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMenuEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuEstoqueActionPerformed(evt);
+            }
+        });
+        panelMenuLateral.add(btnMenuEstoque, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 190, 180, 50));
 
-        panelPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 190, 410));
+        btnMenuSobre.setText("Sobre");
+        btnMenuSobre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMenuSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuSobreActionPerformed(evt);
+            }
+        });
+        panelMenuLateral.add(btnMenuSobre, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 310, 180, 50));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("LOGOMAKER");
-        panelPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 510, 410));
+        btnMenuEstoque1.setText("Estoque");
+        btnMenuEstoque1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        panelMenuLateral.add(btnMenuEstoque1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 250, 180, 50));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("icon config");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        panelMenuLateral.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, -1, -1));
 
-        setSize(new java.awt.Dimension(714, 498));
+        panelPrincipal.add(panelMenuLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 210, 400));
+
+        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 510));
+
+        pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPrecificacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrecificacaoActionPerformed
+    private void btnMenuPrecificacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrecificacaoActionPerformed
         TelaPrecificacao objTelaPrecificacao = new TelaPrecificacao();
         objTelaPrecificacao.setVisible(true);
         dispose();
-    }//GEN-LAST:event_btnPrecificacaoActionPerformed
+    }//GEN-LAST:event_btnMenuPrecificacaoActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void btnMenuRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuRelatorioActionPerformed
+        new TelaRelatorio().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnMenuRelatorioActionPerformed
+
+    private void btnMenuOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuOrcamentoActionPerformed
+        new TelaOrcamento().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnMenuOrcamentoActionPerformed
+
+    private void btnMenuSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuSobreActionPerformed
+        new TelaSobre().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnMenuSobreActionPerformed
+
+    private void btnMenuEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuEstoqueActionPerformed
+        new TelaRecibo().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnMenuEstoqueActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        new TelaMenuConfig().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -151,7 +183,7 @@ public class Menu extends javax.swing.JFrame {
          * Set the Nimbus look and feel
          */
         FlatLightLaf.setup();
-        UIManager.put("Button.arc", 999);
+
         /*
          * Create and display the form
          */
@@ -165,17 +197,17 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnPrecificacao;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton btnMenuEstoque;
+    private javax.swing.JButton btnMenuEstoque1;
+    private javax.swing.JButton btnMenuOrcamento;
+    private javax.swing.JButton btnMenuPrecificacao;
+    private javax.swing.JButton btnMenuRelatorio;
+    private javax.swing.JButton btnMenuSobre;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lblData;
-    private javax.swing.JLabel lblHora;
+    private javax.swing.JLabel lblDataAgora;
     private javax.swing.JLabel lblNomeEmpresa;
+    private javax.swing.JPanel panelMenuLateral;
     private javax.swing.JPanel panelNomeEmpresa;
     private javax.swing.JPanel panelPrincipal;
     // End of variables declaration//GEN-END:variables
